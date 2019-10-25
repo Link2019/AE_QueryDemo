@@ -49,12 +49,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button15 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnSelect = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.lbValue = new System.Windows.Forms.ListBox();
+            this.btnGetValue = new System.Windows.Forms.Button();
+            this.txtSql = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -78,6 +78,7 @@
             this.cboSelectLayer.Name = "cboSelectLayer";
             this.cboSelectLayer.Size = new System.Drawing.Size(266, 25);
             this.cboSelectLayer.TabIndex = 1;
+            this.cboSelectLayer.SelectedIndexChanged += new System.EventHandler(this.cboSelectLayer_SelectedIndexChanged);
             // 
             // panel1
             // 
@@ -98,6 +99,7 @@
             this.lbShow.Name = "lbShow";
             this.lbShow.Size = new System.Drawing.Size(351, 106);
             this.lbShow.TabIndex = 3;
+            this.lbShow.DoubleClick += new System.EventHandler(this.lbShow_DoubleClick);
             // 
             // panel2
             // 
@@ -131,6 +133,7 @@
             this.button12.TabIndex = 0;
             this.button12.Text = "not";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button9
             // 
@@ -141,6 +144,7 @@
             this.button9.TabIndex = 0;
             this.button9.Text = "or";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button6
             // 
@@ -151,6 +155,7 @@
             this.button6.TabIndex = 0;
             this.button6.Text = "and";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button3
             // 
@@ -161,6 +166,7 @@
             this.button3.TabIndex = 0;
             this.button3.Text = "like";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button14
             // 
@@ -171,6 +177,7 @@
             this.button14.TabIndex = 0;
             this.button14.Text = "is";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // button11
             // 
@@ -181,6 +188,7 @@
             this.button11.TabIndex = 0;
             this.button11.Text = "()";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button8
             // 
@@ -191,6 +199,7 @@
             this.button8.TabIndex = 0;
             this.button8.Text = "<=";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button5
             // 
@@ -201,6 +210,7 @@
             this.button5.TabIndex = 0;
             this.button5.Text = ">=";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button2
             // 
@@ -211,6 +221,7 @@
             this.button2.TabIndex = 0;
             this.button2.Text = "<>";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button13
             // 
@@ -221,6 +232,7 @@
             this.button13.TabIndex = 0;
             this.button13.Text = "*";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button10
             // 
@@ -231,6 +243,7 @@
             this.button10.TabIndex = 0;
             this.button10.Text = "?";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button7
             // 
@@ -241,6 +254,7 @@
             this.button7.TabIndex = 0;
             this.button7.Text = "<";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button4
             // 
@@ -251,6 +265,7 @@
             this.button4.TabIndex = 0;
             this.button4.Text = ">";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -261,6 +276,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "=";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -281,78 +297,80 @@
             this.panel5.Size = new System.Drawing.Size(361, 112);
             this.panel5.TabIndex = 4;
             // 
-            // button16
+            // btnClear
             // 
-            this.button16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button16.Location = new System.Drawing.Point(14, 451);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(69, 23);
-            this.button16.TabIndex = 0;
-            this.button16.Text = "清除";
-            this.button16.UseVisualStyleBackColor = true;
+            this.btnClear.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnClear.Location = new System.Drawing.Point(14, 451);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(69, 23);
+            this.btnClear.TabIndex = 0;
+            this.btnClear.Text = "清除";
+            this.btnClear.UseVisualStyleBackColor = true;
             // 
-            // button17
+            // btnSelect
             // 
-            this.button17.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button17.Location = new System.Drawing.Point(145, 452);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(69, 23);
-            this.button17.TabIndex = 0;
-            this.button17.Text = "查询";
-            this.button17.UseVisualStyleBackColor = true;
+            this.btnSelect.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSelect.Location = new System.Drawing.Point(145, 452);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(69, 23);
+            this.btnSelect.TabIndex = 0;
+            this.btnSelect.Text = "查询";
+            this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
-            // button18
+            // btnCancel
             // 
-            this.button18.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button18.Location = new System.Drawing.Point(276, 452);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(69, 23);
-            this.button18.TabIndex = 0;
-            this.button18.Text = "取消";
-            this.button18.UseVisualStyleBackColor = true;
+            this.btnCancel.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCancel.Location = new System.Drawing.Point(276, 452);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(69, 23);
+            this.btnCancel.TabIndex = 0;
+            this.btnCancel.Text = "取消";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // lbValue
             // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.listBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(176, 158);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(182, 140);
-            this.listBox1.TabIndex = 0;
+            this.lbValue.BackColor = System.Drawing.SystemColors.Control;
+            this.lbValue.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbValue.FormattingEnabled = true;
+            this.lbValue.ItemHeight = 17;
+            this.lbValue.Location = new System.Drawing.Point(176, 158);
+            this.lbValue.Name = "lbValue";
+            this.lbValue.Size = new System.Drawing.Size(182, 140);
+            this.lbValue.TabIndex = 0;
+            this.lbValue.DoubleClick += new System.EventHandler(this.lbValue_DoubleClick);
             // 
-            // button15
+            // btnGetValue
             // 
-            this.button15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button15.Location = new System.Drawing.Point(176, 309);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(81, 22);
-            this.button15.TabIndex = 0;
-            this.button15.Text = "获取唯一值";
-            this.button15.UseVisualStyleBackColor = true;
+            this.btnGetValue.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGetValue.Location = new System.Drawing.Point(176, 309);
+            this.btnGetValue.Name = "btnGetValue";
+            this.btnGetValue.Size = new System.Drawing.Size(81, 22);
+            this.btnGetValue.TabIndex = 0;
+            this.btnGetValue.Text = "获取唯一值";
+            this.btnGetValue.UseVisualStyleBackColor = true;
+            this.btnGetValue.Click += new System.EventHandler(this.btnGetValue_Click);
             // 
-            // listBox2
+            // txtSql
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(7, 359);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(351, 88);
-            this.listBox2.TabIndex = 5;
+            this.txtSql.Location = new System.Drawing.Point(7, 357);
+            this.txtSql.Multiline = true;
+            this.txtSql.Name = "txtSql";
+            this.txtSql.Size = new System.Drawing.Size(351, 88);
+            this.txtSql.TabIndex = 5;
             // 
             // frmAttribute
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(361, 482);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.txtSql);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button18);
-            this.Controls.Add(this.button17);
-            this.Controls.Add(this.button15);
-            this.Controls.Add(this.button16);
+            this.Controls.Add(this.lbValue);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.btnGetValue);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -391,11 +409,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ListBox lbValue;
+        private System.Windows.Forms.Button btnGetValue;
+        private System.Windows.Forms.TextBox txtSql;
     }
 }
