@@ -10,17 +10,21 @@ using System.Windows.Forms;
 
 namespace AE_QueryDemo
 {
-    public partial class Form1 : Form
+    public partial class frmAttribute : Form
     {
-        public Form1()
+        public frmAttribute()
         {
             InitializeComponent();
         }
 
-        private void toolStripLabel3_Click(object sender, EventArgs e)
+        private void Attribute_Load(object sender, EventArgs e)
         {
-            frmAttribute frm = new frmAttribute();
-            frm.Show();
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
