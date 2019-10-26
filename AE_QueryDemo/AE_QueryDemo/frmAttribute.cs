@@ -52,14 +52,13 @@ namespace AE_QueryDemo
             IFeatureClass pFtClass = pFtWorkspace.OpenFeatureClass(cboSelectLayer.Text);
             try
             {
-                //恶心查询方法, 返回类型为DataTable
+                //调用核心查询方法, 返回类型为DataTable
                 Global.myDGV1.DataSource = Search(pFtClass, txtSql.Text.Trim());
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
         /// <summary>
         /// 核心查询函数
@@ -79,19 +78,20 @@ namespace AE_QueryDemo
             IFeatureCursor pFtCursor = pFtClass.Search(pQueryFilter, false);
             //声明一个pFt要素并将查询结果中的第一条Feature赋值给它
             IFeature pFt = pFtCursor.NextFeature();
-            //实例化一个DataTable内存表对象, 即函数最后返回的DataTable对象
+            //实例化一个DataTable内存表对象, 用以存储从要素中读取出来的各属性字段值
             DataTable DT = new DataTable();
             for (int i = 0; i < pFtCursor.Fields.FieldCount; i++)
             {
-                //首先设置DT字段
+                //构建表结构：字段名和数据类型
                 DataColumn dc = new DataColumn(pFtCursor.Fields.get_Field(i).Name,
                     System.Type.GetType(ParseFieldType(pFtCursor.Fields.get_Field(i).Type)));
                 //字段生成完成后添加到DT的列中
                 DT.Columns.Add(dc);
             }
+            //当pFt不为空, 遍历查询属性值放到DataTable中显示
             while (pFt != null)
             {
-                //向DT装导入字段值
+                //遍历查询结果逐个写入到DT中
                 DataRow dr = DT.NewRow();
                 //以DT的表结构新建行对象
                 for (int i = 0; i < pFt.Fields.FieldCount; i++)
@@ -100,7 +100,7 @@ namespace AE_QueryDemo
                 }
                 //完成某一行的字段值录入后向DT中添加此行对象
                 DT.Rows.Add(dr);
-                //转到下一个要素
+                //指向下一个要素
                 pFt = pFtCursor.NextFeature();
             }
             return DT;//返回DataTable对象
@@ -126,7 +126,11 @@ namespace AE_QueryDemo
                     return "System.String";
             }
         }
-
+        /// <summary>
+        /// 获取ComboBox被选定的索引号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboSelectLayer_SelectedIndexChanged(object sender, EventArgs e)
         {
             AddFields();
@@ -231,7 +235,11 @@ namespace AE_QueryDemo
             //使用问号表达式来进行判断
             txtSql.Text += var.GetType().FullName == "System.String" ? "'" + var + "'" : var.ToString();
         }
-
+        /// <summary>
+        /// 获取唯一值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGetValue_Click(object sender, EventArgs e)
         {
             lbValue.Items.Clear();

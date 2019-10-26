@@ -303,7 +303,7 @@
             this.btnClear.Location = new System.Drawing.Point(14, 451);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(69, 23);
-            this.btnClear.TabIndex = 0;
+            this.btnClear.TabIndex = 2;
             this.btnClear.Text = "清除";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -325,7 +325,7 @@
             this.btnCancel.Location = new System.Drawing.Point(276, 452);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(69, 23);
-            this.btnCancel.TabIndex = 0;
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -348,7 +348,7 @@
             this.btnGetValue.Location = new System.Drawing.Point(176, 309);
             this.btnGetValue.Name = "btnGetValue";
             this.btnGetValue.Size = new System.Drawing.Size(81, 22);
-            this.btnGetValue.TabIndex = 0;
+            this.btnGetValue.TabIndex = 3;
             this.btnGetValue.Text = "获取唯一值";
             this.btnGetValue.UseVisualStyleBackColor = true;
             this.btnGetValue.Click += new System.EventHandler(this.btnGetValue_Click);

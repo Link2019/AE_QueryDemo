@@ -37,23 +37,24 @@ namespace AE_QueryDemo
             Global.myDGV1 = dataGridView1;
             OpenGDB();
             Global.myDGV1.DataSource = frmAttribute.Search((axMapControl1.get_Layer(Get_Layer("北部湾")) as IFeatureLayer).FeatureClass, "");
-
         }
         /// <summary>
         /// 获得精确图层名下的index
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="LayerName">图层名字</param>
         /// <returns></returns>
         private int Get_Layer(string LayerName)
         {
+            //遍历主视图的图层
             for (int i = 0; i < axMapControl1.LayerCount; i++)
             {
+                //如果图层索引对应的名字和用户输入的名字相同则返回索引
                 if (axMapControl1.get_Layer(i).Name.Equals(LayerName))
                 {
                     return i;
                 }
             }
-            return -1;
+            return -1;//返回-1
         }
 
         /// <summary>
@@ -110,23 +111,32 @@ namespace AE_QueryDemo
             IsSpatialSearch = true;
             btnSptialSearch.Visible = true;
         }
-
+        /// <summary>
+        /// 主视图的OnMouseDown事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
         {
             //当空间查询的状态为真时
             if (IsSpatialSearch)
             {
+                //获取精确图层
                 ILayer pLayer = axMapControl1.get_Layer(Get_Layer("北部湾"));
+                //将图层强转成要素图层
                 IFeatureLayer pFtLayer = pLayer as IFeatureLayer;
+                //将要素图层的图层类强转成要素类
                 IFeatureClass pFtClass = pFtLayer.FeatureClass as IFeatureClass;
+                //随着鼠标拖动得到一个矩形框
                 IEnvelope pEnvelope = axMapControl1.TrackRectangle();
+                //调用核心空间查询函数（采用空间相交的方法esriSpatialRelIntersects）
                 dataGridView1.DataSource = SpatialSearch(pFtClass,"",
                     pEnvelope,esriSpatialRelEnum.esriSpatialRelIntersects);
                 axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
             }
         }
         /// <summary>
-        /// 空间查询
+        /// 核心空间查询函数
         /// </summary>
         /// <param name="pFtClass">查询要素类</param>
         /// <param name="pWhereClause">SQL语句</param>
@@ -135,10 +145,16 @@ namespace AE_QueryDemo
         /// <returns></returns>
         private DataTable SpatialSearch(IFeatureClass pFtClass, string pWhereClause, IGeometry pGeometry, esriSpatialRelEnum pSpRel)
         {
+            //定义空间查询过滤器对象
             ISpatialFilter pSpatialFilter = new SpatialFilterClass();
+            //设置sql查询语句
             pSpatialFilter.WhereClause = pWhereClause;
+            //设置查询范围
             pSpatialFilter.Geometry = pGeometry;
+            //给定范围与查询对象的空间关系
             pSpatialFilter.SpatialRel = pSpRel;
+
+            //查询结果以游标的形式返回(下面与属性查询一样)
             IFeatureCursor pFtCursor = pFtClass.Search(pSpatialFilter, false);
             IFeature pFt = pFtCursor.NextFeature();
             DataTable DT = new DataTable();
