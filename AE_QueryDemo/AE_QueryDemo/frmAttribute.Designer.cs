@@ -306,6 +306,7 @@
             this.btnClear.TabIndex = 0;
             this.btnClear.Text = "清除";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnSelect
             // 
@@ -327,6 +328,7 @@
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lbValue
             // 

@@ -11,9 +11,9 @@ namespace AE_QueryDemo
 {
     class Global
     {
-        //public static string MxdPath = Application.StartupPath + @"\data\1.mxd";
-        //public static string GdbPaht = Application.StartupPath + @"\data.gdp.mdb";
-       // public static string GDirectory = Application.StartupPath + @"\data";
+        public static string MxdPath = Application.StartupPath + @"\data\北部湾.mxd";
+        public static string GdbPath = Application.StartupPath + @"\data\gdp.mdb";
+        // public static string GDirectory = Application.StartupPath + @"\data";
 
         public static IMap pOriginalMap;
         public static IWorkspace pWorkspace1;

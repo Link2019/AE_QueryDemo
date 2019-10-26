@@ -33,9 +33,10 @@ namespace AE_QueryDemo
                 {
                     continue;
                 }
-                cboSelectLayer.SelectedIndex = 0;
-                AddFields();
+                cboSelectLayer.Items.Add(pMap.get_Layer(i).Name);
             }
+            cboSelectLayer.SelectedIndex = 0;
+            AddFields();
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -54,9 +55,9 @@ namespace AE_QueryDemo
                 //恶心查询方法, 返回类型为DataTable
                 Global.myDGV1.DataSource = Search(pFtClass, txtSql.Text.Trim());
             }
-            catch (Exception ee)//这里不能用e变量名？
+            catch (Exception ex)
             {
-                MessageBox.Show(ee.Message);
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -66,7 +67,7 @@ namespace AE_QueryDemo
         /// <param name="pFtClass"></param>
         /// <param name="pWhereClause"></param>
         /// <returns></returns>
-        private static DataTable Search(IFeatureClass pFtClass, string pWhereClause)
+        public static DataTable Search(IFeatureClass pFtClass, string pWhereClause)
         {
             //定义过滤器对象
             IQueryFilter pQueryFilter = new QueryFilter();
@@ -148,7 +149,7 @@ namespace AE_QueryDemo
             for (int i = 0; i < pFtCursor.Fields.FieldCount; i++)
             {
                 IField pField = pFtCursor.Fields.get_Field(i); //获取字段的下标
-                cboSelectLayer.Items.Add(pField.Name.ToString());//将字段名加到ComboBox中
+                lbShow.Items.Add(pField.Name.ToString());//将字段名加到ListBox中
             }
 
         }
@@ -266,8 +267,17 @@ namespace AE_QueryDemo
         private void lbShow_DoubleClick(object sender, EventArgs e)
         {
             object var = lbShow.SelectedItem;
-            txtSql.Text += var.GetType().FullName == "System.String" ? "'" + var + "'"
-           : var.ToString();
+            txtSql.Text += var.ToString();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtSql.Text = "";
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
