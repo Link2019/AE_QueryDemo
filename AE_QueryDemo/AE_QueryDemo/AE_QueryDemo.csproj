@@ -156,7 +156,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="esriGeometry">
       <Guid>{C4B094C2-FF32-4FA1-ABCB-7820F8D6FB68}</Guid>

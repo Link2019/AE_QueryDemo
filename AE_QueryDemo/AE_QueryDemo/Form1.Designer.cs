@@ -43,6 +43,7 @@
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnSptialSearch = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
@@ -97,6 +98,7 @@
             this.toolStripLabel4.Name = "toolStripLabel4";
             this.toolStripLabel4.Size = new System.Drawing.Size(56, 22);
             this.toolStripLabel4.Text = "空间查询";
+            this.toolStripLabel4.Click += new System.EventHandler(this.toolStripLabel4_Click);
             // 
             // statusStrip1
             // 
@@ -153,6 +155,7 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.btnSptialSearch);
             this.splitContainer2.Panel2.Controls.Add(this.axLicenseControl1);
             this.splitContainer2.Panel2.Controls.Add(this.axMapControl1);
             this.splitContainer2.Size = new System.Drawing.Size(734, 261);
@@ -185,6 +188,7 @@
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
             this.axMapControl1.Size = new System.Drawing.Size(535, 261);
             this.axMapControl1.TabIndex = 0;
+            this.axMapControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl1_OnMouseDown);
             // 
             // dataGridView1
             // 
@@ -195,6 +199,17 @@
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(734, 86);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // btnSptialSearch
+            // 
+            this.btnSptialSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSptialSearch.Location = new System.Drawing.Point(372, 197);
+            this.btnSptialSearch.Name = "btnSptialSearch";
+            this.btnSptialSearch.Size = new System.Drawing.Size(100, 30);
+            this.btnSptialSearch.TabIndex = 2;
+            this.btnSptialSearch.Text = "退出空间查询";
+            this.btnSptialSearch.UseVisualStyleBackColor = true;
+            this.btnSptialSearch.Click += new System.EventHandler(this.btnSptialSearch_Click);
             // 
             // Form1
             // 
@@ -246,6 +261,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button btnSptialSearch;
     }
 }
 

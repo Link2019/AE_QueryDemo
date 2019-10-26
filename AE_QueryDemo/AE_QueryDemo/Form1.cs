@@ -11,11 +11,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ESRI.ArcGIS.DataSourcesGDB;
+using ESRI.ArcGIS.Geometry;
 
 namespace AE_QueryDemo
 {
     public partial class Form1 : Form
     {
+        //用于判断空间查询的状态
+        bool IsSpatialSearch = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +32,7 @@ namespace AE_QueryDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
+            btnSptialSearch.Visible = false;
             OpenMxd();
             Global.myDGV1 = dataGridView1;
             OpenGDB();
@@ -100,6 +105,83 @@ namespace AE_QueryDemo
             frm.Show();
         }
 
+        private void toolStripLabel4_Click(object sender, EventArgs e)
+        {
+            IsSpatialSearch = true;
+            btnSptialSearch.Visible = true;
+        }
 
+        private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
+        {
+            //当空间查询的状态为真时
+            if (IsSpatialSearch)
+            {
+                ILayer pLayer = axMapControl1.get_Layer(Get_Layer("北部湾"));
+                IFeatureLayer pFtLayer = pLayer as IFeatureLayer;
+                IFeatureClass pFtClass = pFtLayer.FeatureClass as IFeatureClass;
+                IEnvelope pEnvelope = axMapControl1.TrackRectangle();
+                dataGridView1.DataSource = SpatialSearch(pFtClass,"",
+                    pEnvelope,esriSpatialRelEnum.esriSpatialRelIntersects);
+                axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+            }
+        }
+        /// <summary>
+        /// 空间查询
+        /// </summary>
+        /// <param name="pFtClass">查询要素类</param>
+        /// <param name="pWhereClause">SQL语句</param>
+        /// <param name="pGeometry">空间查询范围</param>
+        /// <param name="pSpRel">空间关系</param>
+        /// <returns></returns>
+        private DataTable SpatialSearch(IFeatureClass pFtClass, string pWhereClause, IGeometry pGeometry, esriSpatialRelEnum pSpRel)
+        {
+            ISpatialFilter pSpatialFilter = new SpatialFilterClass();
+            pSpatialFilter.WhereClause = pWhereClause;
+            pSpatialFilter.Geometry = pGeometry;
+            pSpatialFilter.SpatialRel = pSpRel;
+            IFeatureCursor pFtCursor = pFtClass.Search(pSpatialFilter, false);
+            IFeature pFt = pFtCursor.NextFeature();
+            DataTable DT = new DataTable();
+            for (int i = 0; i < pFtCursor.Fields.FieldCount; i++)
+            {
+                DataColumn dc = new DataColumn(pFtCursor.Fields.get_Field(i).Name,
+                    System.Type.GetType(ParseFieldType((pFtCursor.Fields.get_Field(i).Type))));
+                DT.Columns.Add(dc);
+            }
+            while (pFt != null)
+            {
+                DataRow dr = DT.NewRow();
+                for (int i = 0; i < pFt.Fields.FieldCount; i++)
+                {
+                    dr[i] = pFt.get_Value(i);
+                }
+                DT.Rows.Add(dr);
+                pFt = pFtCursor.NextFeature();
+            }
+            return DT;
+        }
+
+        private string ParseFieldType(esriFieldType FieldType)
+        {
+            switch (FieldType)
+            {
+                case esriFieldType.esriFieldTypeInteger:
+                    return "System.Int32";
+                case esriFieldType.esriFieldTypeOID:
+                    return "System.Int32";
+                case esriFieldType.esriFieldTypeDouble:
+                    return "System.Double";
+                case esriFieldType.esriFieldTypeDate:
+                    return "System.DateTime";
+                default:
+                    return "System.String";
+            }
+        }
+
+        private void btnSptialSearch_Click(object sender, EventArgs e)
+        {
+            IsSpatialSearch = false;
+            btnSptialSearch.Visible = false;
+        }
     }
 }
